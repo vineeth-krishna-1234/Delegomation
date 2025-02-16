@@ -21,6 +21,9 @@ class MongoDBHandler:
             result = collection_instance.insert_one(data)
             return result.inserted_id
 
+    def get_collection(self, collection_name):
+        return self.db[collection_name]
+
     def close_connection(self):
 
         self.client.close()
