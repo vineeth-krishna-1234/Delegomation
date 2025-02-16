@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "delegomation"
+version = "0.1.0"
+description = ""
+authors = ["vineeth-krishna-1234 <77538493+vineeth-krishna-1234@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+selenium = "^4.28.1"
+pymongo = "^4.11.1"
+html2text = "^2024.2.26"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

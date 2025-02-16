@@ -1,0 +1,1 @@
+from .instahyre import CONFIGS as INSTAHYRE_CONFIGS
