@@ -1,4 +1,3 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,15 +7,12 @@ from selenium.common.exceptions import (
     ElementNotInteractableException,
     ElementClickInterceptedException,
 )
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import time
-import json
-from datetime import datetime, timezone
-import random
 from automation_scripts.instahyre.scrapper import aggregate_data
 from automation_scripts.common.db import MongoDBHandler
 from automation_scripts.common.logger import get_logger
+from automation_scripts.common.driver import get_driver
 
 
 class InstaHyre:
@@ -25,17 +21,9 @@ class InstaHyre:
 
         # Set up the Chrome options
         self.config = config
-        options = Options()
-        chrome_profile_path = "/home/rick/.config/google-chrome/Profile 2"
-        options.add_argument("--disable-notifications")
-        options.add_argument("--disable-infobars")
-        options.add_argument("--disable-extensions")
-        options.add_argument(
-            f"user-data-dir={chrome_profile_path}"
-        )  # Load user profile
 
         # Initialize the WebDriver
-        self.driver = webdriver.Chrome(options=options)
+        self.driver = get_driver()
         self.wait = WebDriverWait(self.driver, 30)
         self.application_logs = []
         self.db_instance = MongoDBHandler()
@@ -99,6 +87,7 @@ class InstaHyre:
             self.sleep(1)
             element.send_keys(Keys.ENTER)
             self.sleep(1)
+
     def enter_experience(self):
         element = self.get_element(By.ID, "years")
         element.send_keys(self.config.get("experience", 0))
@@ -254,5 +243,3 @@ class InstaHyre:
             self.driver.quit()
         except Exception as e:
             self.logger.error(f"[global error]:{str(e)}")
-
-
